@@ -84,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
         protected ArrayList<Dev> doInBackground(String... params) {
             ArrayList<Dev> response=new ArrayList<>();
             //api call url to get java developers from lagos
-            String link="https://api.github.com/search/users?q=location:lagos+language:java&" +
-                    "access_token=a668b1b8007722d00953241ad2bd17b6cf3d5529";
+            String link="https://api.github.com/search/users?q=location:lagos+language:java";
 
             try {
                 URL url=new URL(link);
