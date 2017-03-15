@@ -2,9 +2,13 @@ package com.example.dominic.lagosdevs;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,8 +20,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -50,6 +56,24 @@ public class MainActivity extends AppCompatActivity {
         //execute async task
         new getDataTask().execute();
     }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater =getMenuInflater();
+        menuInflater.inflate(R.menu.menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case R.id.about:
+                startActivity(new Intent(this,AboutActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
+    }
+
     class getDataTask extends AsyncTask<String, Void, ArrayList<Dev>>{
 
         protected void onPreExecute() {
@@ -58,9 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList<Dev> doInBackground(String... params) {
-            ArrayList<Dev> response=new ArrayList<Dev>();
+            ArrayList<Dev> response=new ArrayList<>();
             //api call url to get java developers from lagos
-            String link="https://api.github.com/search/users?q=location:lagos+language:java";
+            String link="https://api.github.com/search/users?q=location:lagos+language:java&" +
+                    "access_token=a668b1b8007722d00953241ad2bd17b6cf3d5529";
 
             try {
                 URL url=new URL(link);
@@ -70,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
                 BufferedReader reader=new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 StringBuilder sb=new StringBuilder();
-                String line=null;
+                String line;
                 while((line=reader.readLine())!=null){
                     sb.append(line+"\n");
                 }
@@ -103,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             String photoUrl = obj.getString("avatar_url");
             String profileUrl = obj.getString("html_url");
 
-            return new Dev(username, profileUrl,photoUrl );
+            return new Dev(username, profileUrl,photoUrl);
         }
     }
 }

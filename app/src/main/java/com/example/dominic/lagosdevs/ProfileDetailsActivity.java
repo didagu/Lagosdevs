@@ -1,10 +1,15 @@
 package com.example.dominic.lagosdevs;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +26,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent myIntent=getIntent();
         //get data from the previous activity
@@ -32,7 +38,7 @@ public class ProfileDetailsActivity extends AppCompatActivity {
 
         //set and display GitHub Profile URL
         profileUrl=(TextView) findViewById(R.id.profile_url);
-        profileUrl.setText(Html.fromHtml("<b>URL: </b>").toString()+dev.getProfileUrl());
+        profileUrl.setText(Html.fromHtml("URL: ").toString()+dev.getProfileUrl());
         //make the text clickable
         Linkify.addLinks(profileUrl,Linkify.WEB_URLS);
 
@@ -55,5 +61,16 @@ public class ProfileDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem){
+        switch (menuItem.getItemId()){
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(menuItem);
+        }
     }
 }

@@ -70,6 +70,7 @@ public class DevAdapter extends ArrayAdapter {
 
         TextView username=(TextView) rowView.findViewById(R.id.items_list_username);
         username.setText(dev.getUsername());
+
         return rowView;
     }
 

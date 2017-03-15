@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">LagosDevs</string>
+    <string name="about_author">This App was built by <br>Dominic</br> <br>Idagu</br></string>
+    <string name="email">didagou@gmail.com</string>
+    <string name="facebook_link"><a href="m.facebook.com/didagu">facebook</a></string>
+    <string name="twitter_link"><a href="m.twitter.com/dombrainbox">twitter</a></string>
+    <string name="about">About</string>
+    <string name="url">http://www.github.com</string>
+    <string name="share">SHARE</string>
+    <string name="username">Username</string>
 </resources>
